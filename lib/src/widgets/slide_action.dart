@@ -92,7 +92,7 @@ class SlideAction extends ClosableSlideAction {
   /// constructor: set the `color` argument instead of the `decoration`
   /// argument.
   final Decoration? decoration;
-
+  
   /// The [child] contained by the slide action.
   final Widget child;
 
@@ -120,7 +120,9 @@ class IconSlideAction extends ClosableSlideAction {
     this.caption,
     Color? color,
     this.foregroundColor,
+    required this.textStyle,
     VoidCallback? onTap,
+    required this.spacing,
     bool closeOnTap = _kCloseOnTap,
   })  : assert(icon != null || iconWidget != null,
             'Either set icon or iconWidget.'),
@@ -133,7 +135,8 @@ class IconSlideAction extends ClosableSlideAction {
 
   /// The icon to show.
   final IconData? icon;
-
+  final TextStyle textStyle;
+  final Widget spacing;
   /// A custom widget to represent the icon.
   /// If both [icon] and [iconWidget] are set, they will be shown at the same
   /// time.
@@ -173,14 +176,13 @@ class IconSlideAction extends ClosableSlideAction {
 
     if (caption != null) {
       widgets.add(
+        spacing);
+      widgets.add(
         Flexible(
           child: Text(
             caption!,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .primaryTextTheme
-                .caption!
-                .copyWith(color: foregroundColor ?? estimatedColor),
+            style: textStyle,
           ),
         ),
       );
